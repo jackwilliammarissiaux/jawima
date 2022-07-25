@@ -1,7 +1,7 @@
 package jawima.ecolotest.ecolotest.model;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;;
 
 @Entity
 @Table(name="Ecolo")
@@ -13,6 +13,9 @@ public class EcoLoTest {
     private String result;
     @Temporal(TemporalType.DATE)
     private Date resultDate;
+
+    public EcoLoTest() {
+    }
 
     public EcoLoTest(String url, String result, Date resultDate) {
         this.url = url;
