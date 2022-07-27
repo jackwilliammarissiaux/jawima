@@ -1,21 +1,25 @@
 package jawima.ecolotest.ecolotest.util;
 
 
+import jawima.ecolotest.ecolotest.model.EcoLoTest;
+import jawima.ecolotest.ecolotest.repository.EcoloTestRepository;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.Arrays;
-import java.util.List;
 
 @Component
 public class AppStartupEvent implements ApplicationListener<ApplicationReadyEvent> {
     private final UrlConnection urlConnection;
-
-    public AppStartupEvent(UrlConnection urlConnection) {
+    private final EcoloTestRepository ecoloTestRepository;
+    public AppStartupEvent(UrlConnection urlConnection, EcoloTestRepository ecoloTestRepository) {
         this.urlConnection = urlConnection;
+        this.ecoloTestRepository = ecoloTestRepository;
     }
 
     @Override
@@ -26,7 +30,16 @@ public class AppStartupEvent implements ApplicationListener<ApplicationReadyEven
       String result3=this.urlConnection.getMetadata("https://admin.thegreenwebfoundation.org/greencheck/","www.youtube.com");
 
        JSONArray jsonArray=new JSONArray(Arrays.asList(result1,result2,result3));
-       System.out.println(jsonArray);
+        EcoLoTest ecoLoTest ;
+        Date date =new Date();
+        ecoLoTest=new EcoLoTest("https://www.youtube.com" ,"?",date);
+        //this.ecoloTestRepository.save(ecoLoTest);
+       Iterable<EcoLoTest> ecoLoTests= this.ecoloTestRepository.findEcoLoTestByUrl("https://www.youtube.com");
+
+       ecoLoTests.forEach(ecoLoTest1 -> {
+           System.out.println("event = " + ecoLoTest1.getResultDate());
+       });
+
 
     }
 }

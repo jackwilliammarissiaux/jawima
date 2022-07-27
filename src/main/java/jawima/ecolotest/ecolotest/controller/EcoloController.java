@@ -1,6 +1,7 @@
 package jawima.ecolotest.ecolotest.controller;
 
 
+import jawima.ecolotest.ecolotest.model.EcoLoTest;
 import jawima.ecolotest.ecolotest.repository.EcoloTestRepository;
 import jawima.ecolotest.ecolotest.util.UrlConnection;
 import org.json.JSONArray;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -37,4 +39,5 @@ public class EcoloController {
         JSONArray jsonArray=new JSONArray(Arrays.asList(result1,result2,result3));
         return jsonArray.toList();
     }
+
 }

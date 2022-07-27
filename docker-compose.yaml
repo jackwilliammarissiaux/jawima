@@ -1,14 +1,12 @@
 version: "3"
 services:
-  postgres:
-    image: postgres:latest
-    container_name: postgresJawima
-    volumes:
-      - "./.postgresql-data/db:/var/lib/postgresql"
+  mysql_db:
+    image: "mysql:8.0"
+    restart: always
     ports:
-      - 5432:5432
+      - 3306:3306
     environment:
-      - POSTGRES_PASSWORD=jawima
-      - POSTGRES_USER=jawima
-      - POSTGRES_DB=jawimaDb
-    restart: unless-stopped
+      MYSQL_DATABASE: jawimaDb
+      MYSQL_USER: jawima
+      MYSQL_PASSWORD: jawima
+      MYSQL_ROOT_PASSWORD: jawima
