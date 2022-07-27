@@ -34,11 +34,7 @@ public class AppStartupEvent implements ApplicationListener<ApplicationReadyEven
         Date date =new Date();
         ecoLoTest=new EcoLoTest("https://www.youtube.com" ,"?",date);
         //this.ecoloTestRepository.save(ecoLoTest);
-       Iterable<EcoLoTest> ecoLoTests= this.ecoloTestRepository.findEcoLoTestByUrl("https://www.youtube.com");
 
-       ecoLoTests.forEach(ecoLoTest1 -> {
-           System.out.println("event = " + ecoLoTest1.getResultDate());
-       });
 
 
     }
