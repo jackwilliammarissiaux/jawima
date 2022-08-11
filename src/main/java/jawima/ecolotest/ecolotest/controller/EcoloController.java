@@ -20,9 +20,9 @@ public class EcoloController {
     private final UrlConnection urlConnection;
     @Autowired
     EcoloTestRepository ecoloTestRepository;
-
+    EcoLoTest ecoLoTest ;
     private JSONObject object;
-
+    Date date =new Date();
     public EcoloController(UrlConnection urlConnection) {
         this.urlConnection = urlConnection;
     }
@@ -37,7 +37,19 @@ public class EcoloController {
         String result2=this.urlConnection.getMetadata(url2,link1);
         String result3=this.urlConnection.getMetadata(url3,link);
         JSONArray jsonArray=new JSONArray(Arrays.asList(result1,result2,result3));
+        EcoLoTest ecoLoTest ;
+        ecoLoTest=new EcoLoTest(link ,jsonArray.toString(),date);
+        this.ecoloTestRepository.save(ecoLoTest);
         return jsonArray.toList();
     }
-
+    @GetMapping(value = "/link/number")
+    public List<EcoLoTest> numberofSite(){
+        List<EcoLoTest> ecoLoTest= (List<EcoLoTest>) this.ecoloTestRepository.findAll();
+        return  ecoLoTest;
+    }
+    @GetMapping(value="link/search/{url}")
+    public List<EcoLoTest>findbyUrl(@PathVariable(value = "url")String url){
+        List<EcoLoTest> ecoLoTests= (List<EcoLoTest>) this.ecoloTestRepository.findEcoLoTestByUrl(url);
+        return ecoLoTests;
+    }
 }

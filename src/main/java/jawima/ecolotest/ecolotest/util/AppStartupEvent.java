@@ -25,16 +25,21 @@ public class AppStartupEvent implements ApplicationListener<ApplicationReadyEven
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
 
-      String result1 =this.urlConnection.getMetadata("https://api.websitecarbon.com/site?url=","https://www.youtube.com/");
-      String result2=this.urlConnection.getMetadata("https://api.urlmeta.org/?url=","https://www.youtube.com");
-      String result3=this.urlConnection.getMetadata("https://admin.thegreenwebfoundation.org/greencheck/","www.youtube.com");
+      String result1 =this.urlConnection.getMetadata("https://api.websitecarbon.com/site?url=","https://www.sncf-connect.com");
+      String result2=this.urlConnection.getMetadata("https://api.urlmeta.org/?url=","https://www.sncf-connect.com/");
+      String result3= this.urlConnection.getMetadata("https://admin.thegreenwebfoundation.org/greencheck/", "www.sncf-connect.com");
 
        JSONArray jsonArray=new JSONArray(Arrays.asList(result1,result2,result3));
+       JSONObject jsonObject=new JSONObject(jsonArray);
         EcoLoTest ecoLoTest ;
         Date date =new Date();
-        ecoLoTest=new EcoLoTest("https://www.youtube.com" ,"?",date);
+        System.out.println(jsonArray.get(2));
+        ecoLoTest=new EcoLoTest("https://www.sncf-connect.com/",jsonArray.toString(),date);
         //this.ecoloTestRepository.save(ecoLoTest);
-
+       Iterable<EcoLoTest> ecoLoTests= this.ecoloTestRepository.findEcoLoTestByUrl("https://www.youtube.com");
+       ecoLoTests.forEach(ecoLoTest1 -> {
+           //System.out.println("event = " + ecoLoTest1.getResultDate());
+       });
 
 
     }

@@ -10,6 +10,7 @@ public class EcoLoTest {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long  id;
     private String url ;
+    @Column(columnDefinition = "LONG VARBINARY",length = 40000)
     private String result;
     @Temporal(TemporalType.DATE)
     private Date resultDate;
